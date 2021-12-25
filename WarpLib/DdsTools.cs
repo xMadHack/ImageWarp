@@ -26,8 +26,8 @@ namespace WarpLib
 
         public static System.Drawing.Bitmap LoadDdsAsBitmapThumbnail(string ddsFile, int width)
         {
-            var tempFolder = TempFolder();
-            var tempPng = Path.Combine(tempFolder, GetTemporalFilename(".png"));
+            var tempFolder = TempsHelper.AppTempFolder();
+            var tempPng = Path.Combine(tempFolder, TempsHelper.GetTemporalFilename(".png"));
             ConvertToPng(ddsFile, tempPng);
             Bitmap resized;
             using (var bmp = new Bitmap(tempPng))
@@ -42,9 +42,9 @@ namespace WarpLib
                     g.DrawImage(bmp, 0, 0, resized.Width, resized.Height);
                 }
             }
-            System.IO.File.Delete(tempPng); 
-                    
-             
+            System.IO.File.Delete(tempPng);
+
+
             return resized;
         }
 
@@ -72,155 +72,143 @@ namespace WarpLib
 
         public static void ConvertAnyToDds(string aFile, string ddsfile, bool mipmaps = true, bool compress = true)
         {
-            if (aFile.EndsWith(".png", StringComparison.CurrentCultureIgnoreCase))
-            {
-                ConvertPngToDds(aFile, ddsfile, mipmaps, compress);
-                return;
-            }
-            else
-            {
-                SaveDddsAs(aFile, ddsfile, mipmaps, compress);
-            }
+            SaveDdsAsCmd(aFile, ddsfile, mipmaps, compress);
+            //if (aFile.EndsWith(".png", StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    ConvertPngToDds(aFile, ddsfile, mipmaps, compress);
+            //    return;
+            //}
+            //else
+            //{
+            //    SaveDddsAs(aFile, ddsfile, mipmaps, compress);
+            //}
 
         }
-        private static int TempCounter = 0;
-        private static string GetTemporalFilename(string extensionWithDot)
-        {
-            TempCounter += 1;
-            var file = DateTime.Now.ToString("HH:mm:ss:fff").Replace(":", "_") + "_temp_" + TempCounter.ToString() + extensionWithDot;
-            return file;
-        }
 
-       
-        private static void ConvertToPng(string ddsSourceFile, string pngOutput)
-        {
-            var tempFolder = TempFolder();
-            var tempOutputFolder = Path.Combine(tempFolder, "conv_" + GetTemporalFilename(""));
-            if (!Directory.Exists(tempOutputFolder))
-            {
-                Directory.CreateDirectory(tempOutputFolder);
-            }
-            Console.WriteLine("Convert to Png: Calling cmd util with...");
-            Console.WriteLine("Input: " + ddsSourceFile.ToString());
-            Console.WriteLine("Output: " + pngOutput.ToString());
-            var tempOutputFilename = Path.Combine(tempOutputFolder, Path.GetFileNameWithoutExtension(ddsSourceFile) + ".png");
-            if (File.Exists(tempOutputFilename)) { File.Delete(tempOutputFilename); }
 
-            // Compresses and creates mipmaps
-            var process = new Process
+
+        internal static void ConvertToPng(string ddsSourceFile, string pngOutput)
+        {
+
+            using (var folder = TempsHelper.DisposableFolder("conv_"))
             {
-                StartInfo = new ProcessStartInfo
+                var tempOutputFolder = folder.DirectoryPath;
+                Console.WriteLine("Convert to Png: Calling cmd util with...");
+                Console.WriteLine("Input: " + ddsSourceFile.ToString());
+                Console.WriteLine("Output: " + pngOutput.ToString());
+                var tempOutputFilename = Path.Combine(tempOutputFolder, Path.GetFileNameWithoutExtension(ddsSourceFile) + ".png");
+                if (File.Exists(tempOutputFilename)) { File.Delete(tempOutputFilename); }
+
+                // Compresses and creates mipmaps
+                var process = new Process
                 {
-                    FileName = "Utils\\texconv.exe",
-                    Arguments = $"-f B8G8R8A8_UNORM -nologo -ft png -o \"{tempOutputFolder}\" -y \"{ddsSourceFile}\""
-                }
-            };
-            process.Start();
-            process.WaitForExit();
-            File.Move(tempOutputFilename, pngOutput, true);
-            if (Directory.Exists(tempOutputFolder))
-            {
-                try
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "Utils\\texconv.exe",
+                        Arguments = $"-f B8G8R8A8_UNORM -nologo -ft png -o \"{tempOutputFolder}\" -y \"{ddsSourceFile}\"",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+                File.Move(tempOutputFilename, pngOutput, true);
+                if (Directory.Exists(tempOutputFolder))
                 {
-                    Directory.Delete(tempOutputFolder, true);
+                    try
+                    {
+                        Directory.Delete(tempOutputFolder, true);
+                    }
+                    catch { }
                 }
-                catch { }
-            }
-        }
-
-        private static string TempFolder()
-        {
-            string userTemp = Path.GetTempPath();
-            var folder = Path.Combine(Path.GetFullPath(userTemp), "XmhDdsTool");
-            if (!Directory.Exists(folder)) { Directory.CreateDirectory(folder); }
-            return folder;
-        }
-        public static void ConvertPngToDds(string pngFile, string ddsfile, bool mipmaps = true, bool compress = true)
-        {
-
-            using var png = DirectXTexNet.TexHelper.Instance.LoadFromWICFile(pngFile, DirectXTexNet.WIC_FLAGS.NONE);
-            if (compress)
-            {
-                var tempFolder = TempFolder();
-
-                var tempDdds = Path.Combine(tempFolder, GetTemporalFilename(".dds"));
-                Console.WriteLine("TemporalFile: " + tempDdds);
-                if (File.Exists(tempDdds)) { File.Delete(tempDdds); }
-
-                ConvertToDds(png, tempDdds, false, false);
-
-                SaveDdsAsUsingCommandLine(tempDdds, ddsfile, mipmaps, compress);
-                if (File.Exists(tempDdds)) { File.Delete(tempDdds); }
-                
-            }
-            else
-            {
-
-                ConvertToDds(png, ddsfile, mipmaps, compress);
             }
 
         }
 
-        public static void SaveDddsAs(string ddsSourceFile, string ddsOutputfile, bool mipmaps = true, bool compress = true)
+        //public static void ConvertPngToDds(string pngFile, string ddsfile, bool mipmaps = true, bool compress = true)
+        //{
+
+        //    using var png = DirectXTexNet.TexHelper.Instance.LoadFromWICFile(pngFile, DirectXTexNet.WIC_FLAGS.NONE);
+        //    if (compress)
+        //    {
+        //        var tempFolder = TempsHelper.AppTempFolder();
+
+        //        var tempDdds = Path.Combine(tempFolder, TempsHelper.GetTemporalFilename(".dds"));
+        //        Console.WriteLine("TemporalFile: " + tempDdds);
+        //        if (File.Exists(tempDdds)) { File.Delete(tempDdds); }
+
+        //        ConvertToDds(png, tempDdds, false, false);
+
+        //        SaveDdsAsCmd(tempDdds, ddsfile, mipmaps, compress);
+        //        if (File.Exists(tempDdds)) { File.Delete(tempDdds); }
+
+        //    }
+        //    else
+        //    {
+
+        //        ConvertToDds(png, ddsfile, mipmaps, compress);
+        //    }
+
+        //}
+
+        //public static void SaveDddsAs(string ddsSourceFile, string ddsOutputfile, bool mipmaps = true, bool compress = true)
+        //{
+        //    var meta = TexHelper.Instance.GetMetadataFromDDSFile(ddsSourceFile, DirectXTexNet.DDS_FLAGS.NONE);
+
+        //    var useCommandLine = true;
+        //    if (compress && useCommandLine)
+        //    {
+        //        Console.WriteLine("UsingCommandLine Compression");
+        //        SaveDdsAsCmd(ddsSourceFile, ddsOutputfile, mipmaps, compress);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Builtin Compression");
+        //        using var dds = LoadDDS(ddsSourceFile);
+        //        ConvertToDds(dds, ddsOutputfile, mipmaps, compress);
+        //    }
+        //    Console.WriteLine("UsingCommandLine Compression");
+        //}
+
+        public static void SaveDdsAsCmd(string sourceFile, string ddsOutputfile, bool mipmaps = true, bool compress = true)
         {
-            var meta = TexHelper.Instance.GetMetadataFromDDSFile(ddsSourceFile, DirectXTexNet.DDS_FLAGS.NONE);
+            using (var tmpFolder = TempsHelper.DisposableFolder("dds_conv_"))
+            {
+                var tempOutputFolder = tmpFolder.DirectoryPath;
 
-            var useCommandLine = true;
-            if (compress && useCommandLine)
-            {
-                Console.WriteLine("UsingCommandLine Compression");
-                SaveDdsAsUsingCommandLine(ddsSourceFile, ddsOutputfile, mipmaps, compress);
-            }
-            else
-            {
-                Console.WriteLine("Builtin Compression");
-                using var dds = LoadDDS(ddsSourceFile);
-                ConvertToDds(dds, ddsOutputfile, mipmaps, compress);
-            }
-            Console.WriteLine("UsingCommandLine Compression");
-        }
-
-        private static void SaveDdsAsUsingCommandLine(string ddsSourceFile, string ddsOutputfile, bool mipmaps = true, bool compress = true)
-        {
-            var tempFolder = TempFolder();
-            var tempOutputFolder = Path.Combine(tempFolder, "conv_" + GetTemporalFilename(""));
-            if (!Directory.Exists(tempOutputFolder))
-            {
-                Directory.CreateDirectory(tempOutputFolder);
-            }
-            Console.WriteLine("Calling cmd util with...");
-            Console.WriteLine("Input: " + ddsSourceFile.ToString());
-            Console.WriteLine("Output: " + ddsOutputfile.ToString());
-            var tempOutputFilename = Path.Combine(tempOutputFolder, Path.GetFileName(ddsSourceFile));
-            if (File.Exists(tempOutputFilename)) { File.Delete(tempOutputFilename); }
-            var mipMapArg = "";
-            if (mipmaps) mipMapArg = " -m 1";
-            var formatArg = "";
-            if (compress)
-            {
-                formatArg = "BC7_UNORM";
-            }
-            else
-            {
-                formatArg = "BGRA";
-
-            }
-            // Compresses and creates mipmaps
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
+                Console.WriteLine("Calling cmd util with...");
+                Console.WriteLine("Input: " + sourceFile.ToString());
+                Console.WriteLine("Output: " + ddsOutputfile.ToString());
+                var tempOutputFilename = Path.Combine(tempOutputFolder, Path.GetFileNameWithoutExtension(sourceFile) + ".dds");
+                if (File.Exists(tempOutputFilename)) { File.Delete(tempOutputFilename); }
+                var mipMapArg = "";
+                if (mipmaps) mipMapArg = " -m 1";
+                var formatArg = "";
+                if (compress)
                 {
-                    FileName = "Utils\\texconv.exe",
-                    Arguments = $"-f {formatArg} -nologo{mipMapArg} -o \"{tempOutputFolder}\" -y \"{ddsSourceFile}\""
+                    formatArg = "BC7_UNORM";
                 }
-            };
-            process.Start();
-            process.WaitForExit();
-            File.Move(tempOutputFilename, ddsOutputfile, true);
-            if (Directory.Exists(tempOutputFolder))
-            {
-                try { Directory.Delete(tempOutputFolder, true); } catch { }
+                else
+                {
+                    formatArg = "BGRA";
+
+                }
+                // Compresses and creates mipmaps
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "Utils\\texconv.exe",
+                        Arguments = $"-f {formatArg} -nologo{mipMapArg} -o \"{tempOutputFolder}\" -y \"{sourceFile}\"",
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+                File.Move(tempOutputFilename, ddsOutputfile, true);
             }
+
         }
 
         private static bool IsDdsCompressed(TexMetadata meta)

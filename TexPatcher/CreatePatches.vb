@@ -22,6 +22,7 @@
         End If
 
         Me.UseWaitCursor = True
+        Application.DoEvents()
         Try
             WarpLib.PatchTex.CreatePatch(imfSource.ImageFile, imfMask.ImageFile, imfPatch.ImageFile)
             imfPatch.RefreshPreview()

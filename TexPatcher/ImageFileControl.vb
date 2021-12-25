@@ -64,6 +64,8 @@
             ofd.FileName = ImageFile
             If ofd.ShowDialog() = DialogResult.OK Then
                 ImageFile = ofd.FileName
+                TextBox1.SelectionStart = ImageFile.Length - 1
+                TextBox1.ScrollToCaret()
             End If
         End If
 

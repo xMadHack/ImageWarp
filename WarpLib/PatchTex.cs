@@ -26,42 +26,41 @@ namespace WarpLib
             return file.EndsWith(".dds", StringComparison.CurrentCultureIgnoreCase);
         }
 
-        private static string GetTempFile(int index, string extensionWithDot)
-        {
-            return Path.GetFullPath("temp" + index.ToString() + extensionWithDot);
-        }
-
         public static System.Drawing.Bitmap ApplyPatch(string sourceFile, string patchFile, string outFile, bool compressDds = true)
         {
-            Image<Bgra, byte> sourceImage = null;
-            if (IsDds(sourceFile))
+            using (var tempFolder = TempsHelper.DisposableFolder("patch_op_"))
             {
-                var tempSourcePngFile = GetTempFile(1, ".png");
-                DdsTools.ConvertDdsToPng(sourceFile, tempSourcePngFile);
-                sourceImage = ImageFileHelper.LoadFromFile<Bgra,byte>(tempSourcePngFile);
-            }
-            else
-            {
-                sourceImage = ImageFileHelper.LoadFromFile<Bgra, byte>(sourceFile);
-            }
+                Image<Bgra, byte> sourceImage = null;
+                if (IsDds(sourceFile))
+                {
+                    var tempSourcePngFile = tempFolder.GetTempFile(".png");
+                    DdsTools.ConvertToPng(sourceFile, tempSourcePngFile);
+                    sourceImage = ImageFileHelper.LoadFromFile<Bgra, byte>(tempSourcePngFile);
+                }
+                else
+                {
+                    sourceImage = ImageFileHelper.LoadFromFile<Bgra, byte>(sourceFile);
+                }
 
 
-            var patchImage = ImageFileHelper.LoadFromFile<Bgra, byte>(patchFile);
-            patchImage = patchImage.Resize(sourceImage.Width, sourceImage.Height, Emgu.CV.CvEnum.Inter.Cubic);
-            Image<Bgra, byte> outImage = ImageOps.BlendOver(sourceImage, patchImage);
+                var patchImage = ImageFileHelper.LoadFromFile<Bgra, byte>(patchFile);
+                patchImage = patchImage.Resize(sourceImage.Width, sourceImage.Height, Emgu.CV.CvEnum.Inter.Cubic);
+                Image<Bgra, byte> outImage = ImageOps.BlendOver(sourceImage, patchImage);
 
-            if (IsDds(outFile))
-            {
-                var tempSourcePngFile = GetTempFile(2, ".png");
-                outImage.Save(tempSourcePngFile);
-                DdsTools.ConvertPngToDds(tempSourcePngFile, outFile, true, compressDds);
-                return outImage.ToBitmap();
+                if (IsDds(outFile))
+                {
+                    var tempSourcePngFile =  tempFolder.GetTempFile(".png");
+                    outImage.Save(tempSourcePngFile);
+                    DdsTools.SaveDdsAsCmd(tempSourcePngFile, outFile, true, compressDds);
+                    return outImage.ToBitmap();
+                }
+                else
+                {
+                    outImage.Save(outFile);
+                    return outImage.ToBitmap();
+                }
             }
-            else
-            {
-                outImage.Save(outFile);
-                return outImage.ToBitmap();
-            }
+           
         }
 
     }

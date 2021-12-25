@@ -6,6 +6,38 @@
         End If
         Return IO.File.Exists(s)
     End Function
+
+    ''' <summary>
+    ''' action should not directly call UI elements.
+    ''' callback can call ui elements.
+    ''' Error callback can also.
+    ''' </summary>
+    ''' <param name="action"></param>
+    ''' <param name="callback"></param>
+    Private Sub DoLongTask(ByVal action As Action, callback As Action, errorCallBack As Action(Of Exception))
+        Dim wrappedAction = Sub()
+                                Try
+                                    action()
+                                    Me.Invoke(Sub()
+                                                  Me.Enabled = True
+                                                  Me.Cursor = Cursors.Default
+                                              End Sub)
+                                    Me.Invoke(callback)
+                                Catch ex As Exception
+                                    Me.Invoke(Sub()
+                                                  Me.Enabled = True
+                                                  Me.Cursor = Cursors.Default
+                                              End Sub)
+                                    Me.Invoke(Sub() errorCallBack(ex))
+                                End Try
+                            End Sub
+        Me.Cursor = Cursors.WaitCursor
+        Me.Enabled = False
+        Dim t = New Threading.Thread(wrappedAction)
+        t.Start()
+
+    End Sub
+
     Private Sub bApplyPatches_Click(sender As Object, e As EventArgs) Handles bApplyPatches.Click
         If Not CheckFileAvailable(imfSource.ImageFile) Then
             MessageBox.Show("Please select a source image")
@@ -19,24 +51,33 @@
             MessageBox.Show("Please enter an output filename")
             Return
         End If
-        Me.UseWaitCursor = True
-        Try
-            WarpLib.PatchTex.ApplyPatch(imfSource.ImageFile, imfPatch.ImageFile, imfPatched.ImageFile, chkCompressDds.Checked)
-            imfPatched.RefreshPreview()
-        Finally
-            Me.UseWaitCursor = False
-        End Try
 
-        If chkCloseWhenFinished.Checked Then
-            Me.Close()
-        Else
-            MessageBox.Show("Finished")
-        End If
+        DoLongTask(Sub()
+                       WarpLib.PatchTex.ApplyPatch(imfSource.ImageFile, imfPatch.ImageFile, imfPatched.ImageFile, chkCompressDds.Checked)
+                   End Sub,
+                   Sub()
+                       imfPatched.RefreshPreview()
+                       If chkCloseWhenFinished.Checked Then
+                           Me.Close()
+                       Else
+                           MessageBox.Show("Finished")
+                       End If
+                   End Sub,
+                   Sub(ex As Exception)
+
+                   End Sub)
+
     End Sub
 
     Private Function quote(s As String) As String
         Return ControlChars.Quote + s + ControlChars.Quote
     End Function
+
+    Private Shared ReadOnly Property PatchesFolder As String
+        Get
+            Return IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Patches")
+        End Get
+    End Property
 
     Private Sub ImagePatcher_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim args = My.Application.CommandLineArgs
@@ -51,7 +92,7 @@
             End If
             imfSource.ImageFile = inFile
         End If
-        Dim patchesDir = IO.Path.GetFullPath("Patches")
+        Dim patchesDir = PatchesFolder
         cbPatches.Items.Add("None")
         cbPatches.SelectedItem = "None"
         If IO.Directory.Exists(patchesDir) Then
@@ -64,7 +105,7 @@
 
     Private Sub cbPatches_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPatches.SelectedIndexChanged
         If cbPatches.SelectedItem <> "None" Then
-            imfPatch.ImageFile = IO.Path.Combine(IO.Path.GetFullPath("Patches"), cbPatches.SelectedItem)
+            imfPatch.ImageFile = IO.Path.Combine(PatchesFolder, cbPatches.SelectedItem)
         End If
     End Sub
 

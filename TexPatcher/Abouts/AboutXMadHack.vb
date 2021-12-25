@@ -4,7 +4,7 @@
     End Sub
 
     Private Sub llGithub_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llGithub.LinkClicked
-        Process.Start("explorer", "https://github.com/xMadHack")
+        Process.Start("explorer", "https://github.com/xMadHack/ImageWarp")
     End Sub
 
     Private Sub llPatreon_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llPatreon.LinkClicked

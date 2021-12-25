@@ -22,9 +22,9 @@ Partial Class TexPatcher
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.imfPatched = New ImageFileControl()
-        Me.imfPatch = New ImageFileControl()
-        Me.imfSource = New ImageFileControl()
+        Me.imfPatched = New TexPatcherTool.ImageFileControl()
+        Me.imfPatch = New TexPatcherTool.ImageFileControl()
+        Me.imfSource = New TexPatcherTool.ImageFileControl()
         Me.bApplyPatches = New System.Windows.Forms.Button()
         Me.chkCompressDds = New System.Windows.Forms.CheckBox()
         Me.cbPatches = New System.Windows.Forms.ComboBox()
@@ -47,7 +47,7 @@ Partial Class TexPatcher
         '
         'imfPatched
         '
-        Me.imfPatched.FileFilter = "PNG Files|*.png"
+        Me.imfPatched.FileFilter = "DDS and PNG Files|*.dds;*.png"
         Me.imfPatched.ImageFile = "patched.png"
         Me.imfPatched.ImageFileLabel = "Patched"
         Me.imfPatched.IsOutput = True
@@ -69,7 +69,7 @@ Partial Class TexPatcher
         '
         'imfSource
         '
-        Me.imfSource.FileFilter = "PNG Files|*.png"
+        Me.imfSource.FileFilter = "DDS and PNG Files|*.dds;*.png"
         Me.imfSource.ImageFile = ""
         Me.imfSource.ImageFileLabel = "Source"
         Me.imfSource.IsOutput = False
@@ -139,7 +139,7 @@ Partial Class TexPatcher
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(93, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'ToolsToolStripMenuItem

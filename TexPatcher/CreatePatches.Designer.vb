@@ -23,9 +23,9 @@ Partial Class CreatePatches
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.bCreatePatches = New System.Windows.Forms.Button()
-        Me.imfPatch = New Global.TexPatcherTool.ImageFileControl()
-        Me.imfMask = New Global.TexPatcherTool.ImageFileControl()
-        Me.imfSource = New Global.TexPatcherTool.ImageFileControl()
+        Me.imfPatch = New TexPatcherTool.ImageFileControl()
+        Me.imfMask = New TexPatcherTool.ImageFileControl()
+        Me.imfSource = New TexPatcherTool.ImageFileControl()
         Me.SuspendLayout()
         '
         'bCreatePatches
@@ -61,7 +61,7 @@ Partial Class CreatePatches
         '
         'imfSource
         '
-        Me.imfSource.FileFilter = "PNG Files|*.png"
+        Me.imfSource.FileFilter = "DDS and PNG Files|*.dds;*.png"
         Me.imfSource.ImageFile = ""
         Me.imfSource.ImageFileLabel = "Texture"
         Me.imfSource.IsOutput = False
