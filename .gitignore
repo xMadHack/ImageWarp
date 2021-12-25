@@ -3,7 +3,7 @@
 **/obj
 **/bin
 **/Publish
-**/package
+**/packages
 **/TexData
 **/Patches
 **.vcxproj.users
