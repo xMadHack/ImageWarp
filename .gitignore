@@ -6,8 +6,10 @@
 **/packages
 **/TexData
 **/Patches
+**/GitIgnored
 **.vcxproj.user
 **.vbproj.user
 **.csproj.user
+**.pubxml.user
 .vs
 .editorconfig
