@@ -11,5 +11,6 @@
 **.vbproj.user
 **.csproj.user
 **.pubxml.user
+**/**.pubxml.user
 .vs
 .editorconfig
