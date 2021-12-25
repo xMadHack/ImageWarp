@@ -1,0 +1,12 @@
+**/x64
+**/build
+**/obj
+**/bin
+**/Publish
+**/package
+**/TexData
+**/Patches
+**.vcxproj.users
+**.vbproj.users
+.vs
+.editorconfig
