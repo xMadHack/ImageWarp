@@ -6,8 +6,8 @@
 **/packages
 **/TexData
 **/Patches
-**.vcxproj.users
-**.vbproj.users
-**.csproj.users
+**.vcxproj.user
+**.vbproj.user
+**.csproj.user
 .vs
 .editorconfig
