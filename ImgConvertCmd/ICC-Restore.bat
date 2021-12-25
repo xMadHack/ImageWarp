@@ -1,0 +1,1 @@
+ImgConvertCmd.exe -restore %1

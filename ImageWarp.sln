@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarpLib", "WarpLib\WarpLib.csproj", "{D0BF72B0-C09D-402C-AB97-13C479D17D53}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ImageWarp", "ImageWarp\ImageWarp.vbproj", "{F3634234-EDEB-4A0E-91CB-210079B33B1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImgConvertCmd", "ImgConvertCmd\ImgConvertCmd.csproj", "{2A22F3E1-5625-474D-9E54-643D62D03855}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TexPatcher", "TexPatcher\TexPatcher.vbproj", "{38037A40-2E6E-4A86-81DC-53C1E449EE66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmhShellExtensions", "XmhShellExtensions\XmhShellExtensions.csproj", "{C5E73A20-E54D-4354-9CCF-35BCA509D258}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "XmhShellExtensionsInstaller", "XmhShellExtensionsInstaller\XmhShellExtensionsInstaller.vbproj", "{FB1BBD45-2AAD-4058-8366-2AD21C20CA97}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5E73A20-E54D-4354-9CCF-35BCA509D258} = {C5E73A20-E54D-4354-9CCF-35BCA509D258}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMadHackRegistry", "XMadHackRegistry\XMadHackRegistry.csproj", "{CEBCB785-D316-4AD9-B629-3158B8AB56BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5955FE1-91EB-41EA-9265-29996C39C513}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0BF72B0-C09D-402C-AB97-13C479D17D53}.Debug|x64.ActiveCfg = Debug|x64
+		{D0BF72B0-C09D-402C-AB97-13C479D17D53}.Debug|x64.Build.0 = Debug|x64
+		{D0BF72B0-C09D-402C-AB97-13C479D17D53}.Release|x64.ActiveCfg = Release|x64
+		{D0BF72B0-C09D-402C-AB97-13C479D17D53}.Release|x64.Build.0 = Release|x64
+		{F3634234-EDEB-4A0E-91CB-210079B33B1A}.Debug|x64.ActiveCfg = Debug|x64
+		{F3634234-EDEB-4A0E-91CB-210079B33B1A}.Debug|x64.Build.0 = Debug|x64
+		{F3634234-EDEB-4A0E-91CB-210079B33B1A}.Release|x64.ActiveCfg = Release|x64
+		{F3634234-EDEB-4A0E-91CB-210079B33B1A}.Release|x64.Build.0 = Release|x64
+		{2A22F3E1-5625-474D-9E54-643D62D03855}.Debug|x64.ActiveCfg = Debug|x64
+		{2A22F3E1-5625-474D-9E54-643D62D03855}.Debug|x64.Build.0 = Debug|x64
+		{2A22F3E1-5625-474D-9E54-643D62D03855}.Release|x64.ActiveCfg = Release|x64
+		{2A22F3E1-5625-474D-9E54-643D62D03855}.Release|x64.Build.0 = Release|x64
+		{38037A40-2E6E-4A86-81DC-53C1E449EE66}.Debug|x64.ActiveCfg = Debug|x64
+		{38037A40-2E6E-4A86-81DC-53C1E449EE66}.Debug|x64.Build.0 = Debug|x64
+		{38037A40-2E6E-4A86-81DC-53C1E449EE66}.Release|x64.ActiveCfg = Release|x64
+		{38037A40-2E6E-4A86-81DC-53C1E449EE66}.Release|x64.Build.0 = Release|x64
+		{C5E73A20-E54D-4354-9CCF-35BCA509D258}.Debug|x64.ActiveCfg = Debug|x64
+		{C5E73A20-E54D-4354-9CCF-35BCA509D258}.Debug|x64.Build.0 = Debug|x64
+		{C5E73A20-E54D-4354-9CCF-35BCA509D258}.Release|x64.ActiveCfg = Release|x64
+		{C5E73A20-E54D-4354-9CCF-35BCA509D258}.Release|x64.Build.0 = Release|x64
+		{FB1BBD45-2AAD-4058-8366-2AD21C20CA97}.Debug|x64.ActiveCfg = Debug|x64
+		{FB1BBD45-2AAD-4058-8366-2AD21C20CA97}.Debug|x64.Build.0 = Debug|x64
+		{FB1BBD45-2AAD-4058-8366-2AD21C20CA97}.Release|x64.ActiveCfg = Release|x64
+		{FB1BBD45-2AAD-4058-8366-2AD21C20CA97}.Release|x64.Build.0 = Release|x64
+		{CEBCB785-D316-4AD9-B629-3158B8AB56BB}.Debug|x64.ActiveCfg = Debug|x64
+		{CEBCB785-D316-4AD9-B629-3158B8AB56BB}.Debug|x64.Build.0 = Debug|x64
+		{CEBCB785-D316-4AD9-B629-3158B8AB56BB}.Release|x64.ActiveCfg = Release|x64
+		{CEBCB785-D316-4AD9-B629-3158B8AB56BB}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3050A23-C09B-4FA2-981C-5904F4A307D3}
+	EndGlobalSection
+EndGlobal

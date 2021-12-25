@@ -1,0 +1,1 @@
+ImgConvertCmd.exe -dds %1
