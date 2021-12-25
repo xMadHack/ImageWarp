@@ -8,5 +8,6 @@
 **/Patches
 **.vcxproj.users
 **.vbproj.users
+**.csproj.users
 .vs
 .editorconfig
