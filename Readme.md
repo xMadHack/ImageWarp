@@ -2,20 +2,26 @@
 A tools suite for image processing. 
 
 Included features: 
-- Enables generation of *DDS files thumbnails* in window explorer (including compressed formats)
-- *Context Menu* with shortcuts for DDS and PNG files functionalities.
-- *TexPatcher*: a Tool to quickly apply patches to texture files. (Mosly useful to patch body seams in textures like Skyrim, when having unmatching body and head textures.)
+- Enables generation of **DDS files thumbnails** in window explorer (including compressed formats)
+- **Context Menu** with shortcuts for DDS and PNG files functionalities.
+- **TexPatcher**: a Tool to quickly apply patches to texture files. (Mosly useful to patch body seams in textures like Skyrim, when having unmatching body and head textures.)
 
 **Only Windows x64 operative systems are supported**  
 **Requires .Net 6.0 and .NetFramework 4.8**  
 
-*Tested in:*  
+**Tested in:**  
 - Windows 10 x64
 
 ***Textures not included.***  
 They have to be downloaded externally. For Skyrim, check https://www.nexusmods.com/
 
-## For Users
+## Contribute!
+
+With a pull request: https://github.com/xMadHack/ImageWarp  
+Be a Patreon: https://www.patreon.com/xMadHack  
+Donate to the effort: https://paypal.me/xMadHack  
+
+## Instructions For Users
 
 ### Legitimate Download Sites
 
@@ -39,7 +45,7 @@ The solution is currently tested only with Visual Studio 2022 Comunity Edition.
 2. Open it in VisualStudio 2022.
 3. Build Debug x64 or Release x64.
 
-All the required libraries should 
+All the required libraries should be downloaded automatically by NuGet.
 
 ### Creating outputs
 
