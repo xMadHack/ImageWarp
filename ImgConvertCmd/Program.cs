@@ -28,11 +28,11 @@ class Program
             }
             switch (flag)
             {
-                case ProcessFlags.Dds: WarpLib.DdsTools.ConvertAnyToDds(inFile, ReplaceFileExtension(inFile, ".dds"), true, false); break;
-                case ProcessFlags.DdsNoMipmap: WarpLib.DdsTools.ConvertAnyToDds(inFile, ReplaceFileExtension(inFile, ".dds"), false, false); break;
-                case ProcessFlags.DdsCompressed: WarpLib.DdsTools.ConvertAnyToDds(inFile, ReplaceFileExtension(inFile, ".dds"), true, true); break;
-                case ProcessFlags.DdsCompressedNoMipmap: WarpLib.DdsTools.ConvertAnyToDds(inFile, ReplaceFileExtension(inFile, ".dds"), false, true); break;
-                case ProcessFlags.Png: WarpLib.DdsTools.ConvertDdsToPng(inFile, ReplaceFileExtension(inFile, ".png")); break;
+                case ProcessFlags.Dds: WarpLib.DdsTools.ConvertToDds(inFile, ReplaceFileExtension(inFile, ".dds"), true, false); break;
+                case ProcessFlags.DdsNoMipmap: WarpLib.DdsTools.ConvertToDds(inFile, ReplaceFileExtension(inFile, ".dds"), false, false); break;
+                case ProcessFlags.DdsCompressed: WarpLib.DdsTools.ConvertToDds(inFile, ReplaceFileExtension(inFile, ".dds"), true, true); break;
+                case ProcessFlags.DdsCompressedNoMipmap: WarpLib.DdsTools.ConvertToDds(inFile, ReplaceFileExtension(inFile, ".dds"), false, true); break;
+                case ProcessFlags.Png: WarpLib.DdsTools.ConvertToPng(inFile, ReplaceFileExtension(inFile, ".png")); break;
                 case ProcessFlags.Backup: BackupFile(inFile); break;
                 case ProcessFlags.Restore: Restore(inFile); break;
             }

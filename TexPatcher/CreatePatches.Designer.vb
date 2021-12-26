@@ -40,8 +40,8 @@ Partial Class CreatePatches
         'imfPatch
         '
         Me.imfPatch.FileFilter = "PNG Files|*.png"
-        Me.imfPatch.ImageFile = "patched.png"
-        Me.imfPatch.ImageFileLabel = "Patch"
+        Me.imfPatch.ImageFile = "patch.png"
+        Me.imfPatch.ImageFileLabel = "Patch (Png only)"
         Me.imfPatch.IsOutput = True
         Me.imfPatch.Location = New System.Drawing.Point(414, 12)
         Me.imfPatch.Name = "imfPatch"
@@ -52,7 +52,7 @@ Partial Class CreatePatches
         '
         Me.imfMask.FileFilter = "PNG Files|*.png"
         Me.imfMask.ImageFile = ""
-        Me.imfMask.ImageFileLabel = "Mask"
+        Me.imfMask.ImageFileLabel = "Mask (Png only)"
         Me.imfMask.IsOutput = False
         Me.imfMask.Location = New System.Drawing.Point(213, 12)
         Me.imfMask.Name = "imfMask"

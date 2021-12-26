@@ -12,13 +12,41 @@ namespace WarpLib
     {
         public static System.Drawing.Bitmap CreatePatch(string sourceFile, string maskFile, string outFile)
         {
-            var sourceImage = ImageFileHelper.LoadFromFile<Bgra,byte>(sourceFile);
-            var maskImage = ImageFileHelper.LoadFromFile<Gray, byte>(maskFile);
-            maskImage = maskImage.Resize(sourceImage.Width, sourceImage.Height, Emgu.CV.CvEnum.Inter.Cubic);
-            var outImage = ImageOps.MaskToAlpha(sourceImage, maskImage);
 
-            outImage.Save(outFile);
-            return outImage.ToBitmap();
+            using (var tempFolder = TempsHelper.DisposableFolder("patch_op_"))
+            {
+                Image<Bgra, byte> sourceImage = null;
+                if (IsDds(sourceFile))
+                {
+                    var tempSourcePngFile = tempFolder.GetTempFile(".png");
+                    DdsTools.ConvertToPng(sourceFile, tempSourcePngFile);
+                    sourceImage = ImageFileHelper.LoadFromFile<Bgra, byte>(tempSourcePngFile);
+                }
+                else
+                {
+                    sourceImage = ImageFileHelper.LoadFromFile<Bgra, byte>(sourceFile);
+                }
+
+                var maskImage = ImageFileHelper.LoadFromFile<Gray, byte>(maskFile);
+
+                maskImage = maskImage.Resize(sourceImage.Width, sourceImage.Height, Emgu.CV.CvEnum.Inter.Cubic);
+
+                Image<Bgra, byte> outImage = ImageOps.MaskToAlpha(sourceImage, maskImage);
+
+                //Should not be dds, but just in case
+                if (IsDds(outFile))
+                {
+                    var tempSourcePngFile = tempFolder.GetTempFile(".png");
+                    outImage.Save(tempSourcePngFile);
+                    DdsTools.SaveDdsAsCmd(tempSourcePngFile, outFile, true, false);
+                    return outImage.ToBitmap();
+                }
+                else
+                {
+                    outImage.Save(outFile);
+                    return outImage.ToBitmap();
+                }
+            }
         }
 
         private static bool IsDds(string file)
@@ -49,7 +77,7 @@ namespace WarpLib
 
                 if (IsDds(outFile))
                 {
-                    var tempSourcePngFile =  tempFolder.GetTempFile(".png");
+                    var tempSourcePngFile = tempFolder.GetTempFile(".png");
                     outImage.Save(tempSourcePngFile);
                     DdsTools.SaveDdsAsCmd(tempSourcePngFile, outFile, true, compressDds);
                     return outImage.ToBitmap();
@@ -60,7 +88,7 @@ namespace WarpLib
                     return outImage.ToBitmap();
                 }
             }
-           
+
         }
 
     }
