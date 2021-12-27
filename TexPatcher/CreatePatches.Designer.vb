@@ -30,9 +30,10 @@ Partial Class CreatePatches
         '
         'bCreatePatches
         '
-        Me.bCreatePatches.Location = New System.Drawing.Point(615, 96)
+        Me.bCreatePatches.Location = New System.Drawing.Point(879, 160)
+        Me.bCreatePatches.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bCreatePatches.Name = "bCreatePatches"
-        Me.bCreatePatches.Size = New System.Drawing.Size(73, 62)
+        Me.bCreatePatches.Size = New System.Drawing.Size(104, 103)
         Me.bCreatePatches.TabIndex = 0
         Me.bCreatePatches.Text = "Create Patch"
         Me.bCreatePatches.UseVisualStyleBackColor = True
@@ -43,9 +44,10 @@ Partial Class CreatePatches
         Me.imfPatch.ImageFile = "patch.png"
         Me.imfPatch.ImageFileLabel = "Patch (Png only)"
         Me.imfPatch.IsOutput = True
-        Me.imfPatch.Location = New System.Drawing.Point(414, 12)
+        Me.imfPatch.Location = New System.Drawing.Point(591, 20)
+        Me.imfPatch.Margin = New System.Windows.Forms.Padding(6, 7, 6, 7)
         Me.imfPatch.Name = "imfPatch"
-        Me.imfPatch.Size = New System.Drawing.Size(195, 146)
+        Me.imfPatch.Size = New System.Drawing.Size(279, 243)
         Me.imfPatch.TabIndex = 12
         '
         'imfMask
@@ -54,9 +56,10 @@ Partial Class CreatePatches
         Me.imfMask.ImageFile = ""
         Me.imfMask.ImageFileLabel = "Mask (Png only)"
         Me.imfMask.IsOutput = False
-        Me.imfMask.Location = New System.Drawing.Point(213, 12)
+        Me.imfMask.Location = New System.Drawing.Point(304, 20)
+        Me.imfMask.Margin = New System.Windows.Forms.Padding(6, 7, 6, 7)
         Me.imfMask.Name = "imfMask"
-        Me.imfMask.Size = New System.Drawing.Size(195, 146)
+        Me.imfMask.Size = New System.Drawing.Size(279, 243)
         Me.imfMask.TabIndex = 11
         '
         'imfSource
@@ -65,21 +68,23 @@ Partial Class CreatePatches
         Me.imfSource.ImageFile = ""
         Me.imfSource.ImageFileLabel = "Texture"
         Me.imfSource.IsOutput = False
-        Me.imfSource.Location = New System.Drawing.Point(12, 12)
+        Me.imfSource.Location = New System.Drawing.Point(17, 20)
+        Me.imfSource.Margin = New System.Windows.Forms.Padding(6, 7, 6, 7)
         Me.imfSource.Name = "imfSource"
-        Me.imfSource.Size = New System.Drawing.Size(195, 146)
+        Me.imfSource.Size = New System.Drawing.Size(279, 243)
         Me.imfSource.TabIndex = 13
         '
         'CreatePatches
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 30.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(699, 170)
+        Me.ClientSize = New System.Drawing.Size(999, 283)
         Me.Controls.Add(Me.imfSource)
         Me.Controls.Add(Me.imfPatch)
         Me.Controls.Add(Me.imfMask)
         Me.Controls.Add(Me.bCreatePatches)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaximizeBox = False
         Me.Name = "CreatePatches"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

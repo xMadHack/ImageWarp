@@ -24,25 +24,6 @@ Namespace My
     ' End Sub
 
     Partial Friend Class MyApplication
-        Private Sub MyApplication_Startup(sender As Object, e As StartupEventArgs) Handles Me.Startup
-            If My.Application.CommandLineArgs.Count = 1 Then
-                Select Case My.Application.CommandLineArgs(0)
-                    Case InstallerForm.InstallerActions.InstallEverything
-                        InstallerForm.InstallAll()
-                    Case InstallerForm.InstallerActions.InstallContextMenu
-                        InstallerForm.InstallContextMenu()
-                    Case InstallerForm.InstallerActions.InstallDdsThumbnails
-                        InstallerForm.InstallDdsThumbnails()
-                    Case InstallerForm.InstallerActions.Uninstall
-                        InstallerForm.Uninstall()
-                End Select
-                System.Environment.Exit(0)
-            End If
 
-        End Sub
-
-        Private Sub MyApplication_ApplyApplicationDefaults(sender As Object, e As ApplyApplicationDefaultsEventArgs) Handles Me.ApplyApplicationDefaults
-            e.HighDpiMode = HighDpiMode.DpiUnawareGdiScaled
-        End Sub
     End Class
 End Namespace

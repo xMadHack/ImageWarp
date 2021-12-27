@@ -66,6 +66,9 @@
     <Compile Include="..\XMadHackRegistry\ImgConvertCmdDescription.cs">
       <Link>ImgConvertCmdDescription.cs</Link>
     </Compile>
+    <Compile Include="..\XMadHackRegistry\LiteViewDescription.cs">
+      <Link>LiteViewDescription.cs</Link>
+    </Compile>
     <Compile Include="..\XMadHackRegistry\TexPatcherDescription.cs">
       <Link>TexPatcherDescription.cs</Link>
     </Compile>

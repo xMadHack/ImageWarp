@@ -38,6 +38,18 @@ namespace XmhShellExtensions
             List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
 
             var item = new ToolStripMenuItem();
+            item.Text = "Show with LiteView";
+            item.Click += (sender, args) =>
+            {
+                foreach (var f in filenames)
+                {
+                    Process.Start(Path.GetFullPath(RegHelper.LiteViewPath()), $"\"{f}\"");
+                }
+            };
+            items.Add(item);
+
+
+            item = new ToolStripMenuItem();
             item.Text = "Open with TexPatcher";
             item.Click += (sender, args) =>
             {
@@ -47,6 +59,8 @@ namespace XmhShellExtensions
                 }
             };
             items.Add(item);
+
+
             var imgConverterPath = RegHelper.ImgConverCmdPath();
 
             item = new ToolStripMenuItem();

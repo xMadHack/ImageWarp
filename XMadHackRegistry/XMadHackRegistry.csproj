@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDescription.cs" />
+    <Compile Include="LiteViewDescription.cs" />
     <Compile Include="TexPatcherDescription.cs" />
     <Compile Include="ImgConvertCmdDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

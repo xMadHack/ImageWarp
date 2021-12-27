@@ -24,6 +24,16 @@ Namespace My
     ' End Sub
 
     Partial Friend Class MyApplication
+        Private Sub MyApplication_ApplyApplicationDefaults(sender As Object, e As ApplyApplicationDefaultsEventArgs) Handles Me.ApplyApplicationDefaults
 
+            ' Setting the application-wide default Font:
+            'e.Font = New Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular)
+
+            ' Setting the HighDpiMode for the Application:
+            e.HighDpiMode = HighDpiMode.DpiUnawareGdiScaled
+
+            ' If a splash dialog is used, this sets the minimum display time:
+            'e.MinimumSplashScreenDisplayTime = 4000
+        End Sub
     End Class
 End Namespace

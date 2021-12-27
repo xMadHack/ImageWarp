@@ -56,9 +56,41 @@ Public Class ProcLock
         Return pids
     End Function
 
+    Public Shared Function IsHandleInstalled() As Boolean
+        Dim handleExe = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "handle.exe")
+        Return File.Exists(handleExe)
+    End Function
+
+    Public Shared Function TestHandle(timeout As Integer) As Boolean
+        Dim handleExe = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "handle.exe")
+        If Not File.Exists(handleExe) Then
+            DownloadHandleExe()
+        End If
+        Dim startInfo = New ProcessStartInfo()
+        startInfo.FileName = handleExe
+        startInfo.ArgumentList.Add("-xxx")
+        'startInfo.RedirectStandardOutput = True
+        'startInfo.UseShellExecute = False
+
+        Using proc = Process.Start(startInfo)
+            Dim ok As Boolean
+            If timeout > 0 Then
+                ok = proc.WaitForExit(5000)
+            Else
+                proc.WaitForExit()
+                ok = proc.ExitCode = 0
+            End If
+            'Dim content = proc.StandardOutput.ReadToEnd()
+            Debug.WriteLine("Test handle: " + ok.ToString())
+            Return ok
+        End Using
+        Return False
+    End Function
+
     Private Function ExecuteHandleExe(ByVal handleExe As String, ByVal path As String) As String
         Dim startInfo = New ProcessStartInfo()
         startInfo.FileName = handleExe
+        startInfo.ArgumentList.Add("-p explorer")
         startInfo.ArgumentList.Add(path)
         startInfo.RedirectStandardOutput = True
         startInfo.UseShellExecute = False
@@ -71,7 +103,7 @@ Public Class ProcLock
         End Using
     End Function
 
-    Private Sub DownloadHandleExe()
+    Private Shared Sub DownloadHandleExe()
 #Disable Warning SYSLIB0014 ' Type or member is obsolete
         Using client = New WebClient()
 #Enable Warning SYSLIB0014 ' Type or member is obsolete

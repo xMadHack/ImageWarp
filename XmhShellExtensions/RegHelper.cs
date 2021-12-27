@@ -33,5 +33,11 @@ namespace XmhShellExtensions
             var appDesc = new XMadHackRegistry.TexPatcherDescription();
             return appDesc.ReadRegisteredPath();
         }
+
+        public static string LiteViewPath()
+        {
+            var appDesc = new XMadHackRegistry.LiteViewDescription();
+            return appDesc.ReadRegisteredPath();
+        }
     }
 }

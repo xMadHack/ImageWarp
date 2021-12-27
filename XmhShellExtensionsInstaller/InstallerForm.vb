@@ -248,6 +248,7 @@ Public Class InstallerForm
 
         Dim texPatcherApp = New TexPatcherDescription()
         Dim imgConvertCmdApp = New ImgConvertCmdDescription()
+        Dim liteViewApp = New LiteViewDescription()
         Dim shelExtDll = New XmhShellExtensionsDescription()
 
 
@@ -259,6 +260,7 @@ Public Class InstallerForm
 
         texPatcherApp.WriteBaseRegistryValues()
         imgConvertCmdApp.WriteBaseRegistryValues()
+        liteViewApp.WriteBaseRegistryValues()
         shelExtDll.WriteBaseRegistryValues(enableDdsThumb, enableContextMenu, True)
         ' 3. register the extensions dll
         RegisterDll(TargetShellExtensionsDllFullPath)
@@ -292,12 +294,14 @@ Public Class InstallerForm
 
         Dim texPatcherApp = New TexPatcherDescription()
         Dim imgConvertCmdApp = New ImgConvertCmdDescription()
+        Dim liteViewApp = New LiteViewDescription()
         Dim shelExtDll = New XmhShellExtensionsDescription()
         Log("Uninstallation: deleting registry entries")
 
         texPatcherApp.DeleteKeyFromRegistry()
         imgConvertCmdApp.DeleteKeyFromRegistry()
         shelExtDll.DeleteKeyFromRegistry()
+        liteViewApp.DeleteKeyFromRegistry()
         Log("Uninstallation finished")
     End Sub
 
@@ -306,6 +310,24 @@ Public Class InstallerForm
             MessageBox.Show(Me, "XmhShelExtensions.dll is detected to be installed. Removing it might take several seconds, and could possibly restart explorer.exe process. Click OK, and please wait until the process is finished.")
             Me.UseWaitCursor = True
         End If
+
+        Dim timeout = 5000
+        Dim handleInstalled = ProcLock.IsHandleInstalled()
+        If Not handleInstalled Then
+            timeout = 0
+            If MessageBox.Show(Me, $"The uninstallation process requires to download and execute {Quote("Handle.exe")}:" + vbCrLf +
+                               "An application that detects which processes are locking specific files. " + vbCrLf + "By clicking OK, the installer will automatically download and execute it. Pressing Cancel will abort the operation.", "Handle.exe", MessageBoxButtons.OKCancel) <> DialogResult.OK Then
+                MessageBox.Show("Uninstallation aborted")
+                Return
+            End If
+            MessageBox.Show("Now the installer will execute Handle.exe. It's End User License Agreement needs to be accepted. Once accepted, it will not ask again.")
+        End If
+
+        If Not ProcLock.TestHandle(timeout) Then
+            MessageBox.Show("Handle is not responding. Aborting unstallation.")
+            Return
+        End If
+
         Dim p = New Process()
         p.StartInfo.UseShellExecute = True
         p.StartInfo.Verb = "runas"
@@ -317,7 +339,7 @@ Public Class InstallerForm
         If p.ExitCode = 0 Then
             MessageBox.Show(Me, "Uninstallation Complete")
         Else
-            MessageBox.Show(Me, "Uninstallation fisnihed with errors. Please try one more time.")
+            MessageBox.Show(Me, "Uninstallation finished with errors. Possibly, XmlShellExtensions.dll unlocking was delayed. Please try once more. If the issues persists, please refer to the help section in xMadhack website.")
         End If
     End Sub
 

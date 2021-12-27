@@ -16,12 +16,19 @@ namespace WarpLib
 
         public static System.Drawing.Bitmap LoadDdsAsBitmap(string ddsFile)
         {
-            using var dds = LoadDDS(ddsFile);
-            Guid guid = TexHelper.Instance.GetWICCodec(WICCodecs.PNG);
-            using (UnmanagedMemoryStream memStream = dds.SaveToWICMemory(0, WIC_FLAGS.FORCE_SRGB, guid))
-            {
-                return (Bitmap)System.Drawing.Image.FromStream(memStream);
-            }
+            //using var dds = LoadDDS(ddsFile);
+            //Guid guid = TexHelper.Instance.GetWICCodec(WICCodecs.PNG);
+            //using (UnmanagedMemoryStream memStream = dds.SaveToWICMemory(0, WIC_FLAGS.FORCE_SRGB, guid))
+            //{
+            //    return (Bitmap)System.Drawing.Image.FromStream(memStream);
+            //}
+            var tempFolder = TempsHelper.AppTempFolder();
+            var tempPng = Path.Combine(tempFolder, TempsHelper.GetTemporalFilename(".png"));
+            ConvertToPng(ddsFile, tempPng);
+            var ms= new MemoryStream(File.ReadAllBytes(tempPng));
+            Bitmap bmp = new Bitmap(ms);
+            System.IO.File.Delete(tempPng);
+            return bmp;
         }
 
         public static System.Drawing.Bitmap LoadDdsAsBitmapThumbnail(string ddsFile, int width)
