@@ -9,6 +9,11 @@
     <PublishSingleFile>False</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
+    <Authors>xMadHack</Authors>
+    <Company>XMH Tools</Company>
+    <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -18,6 +23,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants>$(DefineConstants)</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="License.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="License.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DirectXTexNet" Version="1.0.3" />
@@ -31,6 +46,10 @@
     <None Update="Utils\texconv.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

@@ -38,10 +38,13 @@
         End Get
     End Property
     Private Sub pView_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+        If e.Button <> MouseButtons.Left Then Return
         IsMouseDown = True
+        MouseOldPos = e.Location
     End Sub
 
     Private Sub pView_MouseUp(sender As Object, e As MouseEventArgs) Handles Me.MouseUp
+        If e.Button <> MouseButtons.Left Then Return
         IsMouseDown = False
     End Sub
     Private MouseOldPos As New Point()

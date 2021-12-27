@@ -10,6 +10,10 @@
     <PublishSingleFile>false</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
+    <Authors>xMadHack</Authors>
+    <Company>XMH Tools</Company>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

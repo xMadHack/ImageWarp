@@ -238,7 +238,7 @@ Partial Class TexPatcher
         Me.MaximizeBox = False
         Me.Name = "TexPatcher"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "ImagePatcher"
+        Me.Text = "[XMH] TexPatcher"
         Me.MenuBar.ResumeLayout(False)
         Me.MenuBar.PerformLayout()
         Me.ResumeLayout(False)

@@ -6,6 +6,7 @@
         End Get
         Set(value As String)
             TextBox1.Text = value
+            CaretToEnd()
             RefreshPreview()
         End Set
     End Property
@@ -49,6 +50,12 @@
 
     Public Property FileFilter As String = "PNG Files|*.png"
 
+    Public Sub CaretToEnd()
+        If String.IsNullOrEmpty(TextBox1.Text) Then Return
+        TextBox1.SelectionStart = TextBox1.Text.Length - 1
+        TextBox1.ScrollToCaret()
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If IsOutputImage Then
             Dim sfd = New SaveFileDialog()
@@ -64,8 +71,7 @@
             ofd.FileName = ImageFile
             If ofd.ShowDialog() = DialogResult.OK Then
                 ImageFile = ofd.FileName
-                TextBox1.SelectionStart = ImageFile.Length - 1
-                TextBox1.ScrollToCaret()
+                CaretToEnd()
             End If
         End If
 

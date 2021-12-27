@@ -79,18 +79,24 @@
         End Get
     End Property
 
-    Private Sub ImagePatcher_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub ImagePatcher_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Dim args = My.Application.CommandLineArgs
         If args.Count = 1 Then
             Dim inFile = args(0)
-            If inFile.EndsWith(".png", StringComparison.CurrentCultureIgnoreCase) Then
-                Dim outfile = IO.Path.GetDirectoryName(inFile)
-                outfile = IO.Path.Combine(outfile, IO.Path.GetFileNameWithoutExtension(inFile) + ".dds")
-                imfPatched.ImageFile = outfile
-            Else
-                imfPatched.ImageFile = inFile
-            End If
+            'imfPatched.ImageFile = inFile 'defaults to overwrite
+
+            'If inFile.EndsWith(".png", StringComparison.CurrentCultureIgnoreCase) Then
+            '    Dim outfile = IO.Path.GetDirectoryName(inFile)
+            '    outfile = IO.Path.Combine(outfile, IO.Path.GetFileNameWithoutExtension(inFile) + ".png")
+            '    imfPatched.ImageFile = outfile
+            'Else
+            '    imfPatched.ImageFile = inFile
+            'End If
             imfSource.ImageFile = inFile
+
+            Dim outfile = IO.Path.GetDirectoryName(inFile)
+            outfile = IO.Path.Combine(outfile, "patched_" + IO.Path.GetFileName(inFile))
+            imfPatched.ImageFile = outfile
         End If
         Dim patchesDir = PatchesFolder
         cbPatches.Items.Add("None")

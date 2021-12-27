@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XmhShellExtensions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("https://github.com/xMadHack/ImageWarp")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("XMH Tools")]
 [assembly: AssemblyProduct("XmhShellExtensions")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

@@ -11,6 +11,12 @@
     <PublishSingleFile>false</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
+    <Authors>xMadHack</Authors>
+    <Company>XMH Tools</Company>
+    <Description>https://github.com/xMadHack/ImageWarp</Description>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -54,6 +60,10 @@
     </None>
     <None Update="XmhShellExtensions.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\LiteView\License.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 

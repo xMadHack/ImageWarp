@@ -17,7 +17,8 @@ namespace WarpLib
         public static string GetTemporalFilename(string extensionWithDot)
         {
             TempCounter += 1;
-            var file = DateTime.Now.ToString("HH:mm:ss:fff").Replace(":", "_") + "_temp_" + TempCounter.ToString() + extensionWithDot;
+            //var file = DateTime.Now.ToString("HH:mm:ss:fff").Replace(":", "_") + "_temp_" + TempCounter.ToString() + extensionWithDot;
+            var file = "t"+TempCounter.ToString()+"_"+Guid.NewGuid().ToString("N") + extensionWithDot;
             return file;
         }
 

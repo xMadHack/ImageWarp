@@ -35,7 +35,7 @@ Public Class ProcLock
             Catch thrown As ArgumentException
 
                 If thrown.Message <> $"Process with an Id of {pid} is not running." Then
-                    Throw
+                    ' Throw
                 End If
             End Try
         Next
@@ -69,6 +69,8 @@ Public Class ProcLock
         Dim startInfo = New ProcessStartInfo()
         startInfo.FileName = handleExe
         startInfo.ArgumentList.Add("-xxx")
+        'startInfo.Verb = "runas"
+        startInfo.UseShellExecute = True
         'startInfo.RedirectStandardOutput = True
         'startInfo.UseShellExecute = False
 
@@ -90,7 +92,8 @@ Public Class ProcLock
     Private Function ExecuteHandleExe(ByVal handleExe As String, ByVal path As String) As String
         Dim startInfo = New ProcessStartInfo()
         startInfo.FileName = handleExe
-        startInfo.ArgumentList.Add("-p explorer")
+        'startInfo.ArgumentList.Add("-p") 'Applying arguments sometimes misses the locking processes. Dont use them
+        'startInfo.ArgumentList.Add("exp")
         startInfo.ArgumentList.Add(path)
         startInfo.RedirectStandardOutput = True
         startInfo.UseShellExecute = False

@@ -8,7 +8,7 @@
     End Sub
 
     Private ImgFilename As String = ""
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub LiteViewForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If My.Application.CommandLineArgs.Count = 0 Then
             Dim ofd = New OpenFileDialog()
             If ofd.ShowDialog() = DialogResult.OK Then

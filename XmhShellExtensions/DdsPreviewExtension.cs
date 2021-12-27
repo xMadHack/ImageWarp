@@ -23,7 +23,7 @@ namespace XmhShellExtensions
 #pragma warning restore CS0618 // Type or member is obsolete
     public class DdsThumbnailHandler : SharpThumbnailHandler
     {
-
+        private const int GenerationTimeout = 30000;
         private Random rand = new Random(System.Environment.TickCount);
         private bool LogStuff = false; //change this for debugging purposes
         private string ImgConvertCmdPath="";
@@ -100,7 +100,7 @@ namespace XmhShellExtensions
                 p.StartInfo.FileName = ImgConvertCmdPath;
                 p.StartInfo.Arguments = $"-thumbnail {width} \"{infile}\" \"{outfile}\"";
                 p.Start();
-                p.WaitForExit(10000);
+                p.WaitForExit(GenerationTimeout);
                 try
                 {
                     var bytes = File.ReadAllBytes(outfile);//We do this so the file can be deleted

@@ -86,6 +86,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="Key.snk" />
+    <None Include="License.md" />
     <None Include="packages.config" />
     <None Include="Readme.md" />
     <None Include="register.bat">
@@ -94,9 +95,6 @@
     <None Include="unregister.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="License.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -33,7 +33,7 @@ namespace XmhShellExtensions
 
         private static ToolStripMenuItem[] CreateToolsSubMenuItems(IEnumerable<string> filenames)
         {
-             var texPatcherPath =  RegHelper.TexPatcherPath();
+            var texPatcherPath = RegHelper.TexPatcherPath();
 
             List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
 
@@ -65,13 +65,10 @@ namespace XmhShellExtensions
 
             item = new ToolStripMenuItem();
             item.Text = "Convert to PNG";
+
             item.Click += (sender, args) =>
-            {
-                foreach (var f in filenames)
-                {
-                    Process.Start(Path.GetFullPath(imgConverterPath), $"-png \"{f}\"");
-                }
-            };
+                DoCmdWithArgsForAll(imgConverterPath, filenames, (string f) => $"-png \"{f}\"");
+
             items.Add(item);
 
             item = new ToolStripMenuItem();
@@ -83,6 +80,23 @@ namespace XmhShellExtensions
             return items.ToArray();
         }
 
+
+        private static void DoCmdWithArgs(string exePath, string args)
+        {
+            var p = new Process();
+            p.StartInfo.FileName = exePath;
+            p.StartInfo.Arguments = args;
+            p.Start();
+            p.WaitForExit(30000);
+        }
+
+        private static void DoCmdWithArgsForAll(string exePath, IEnumerable<string> filenames, Func<string, string> argsGetter)
+        {
+            foreach (var f in filenames)
+            {
+                DoCmdWithArgs(exePath, argsGetter(f));
+            }
+        }
         private static ToolStripMenuItem[] CreateDDsSubMenuItems(IEnumerable<string> filenames, string imgConvertCmdPath)
         {
             List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
@@ -90,45 +104,26 @@ namespace XmhShellExtensions
             var item = new ToolStripMenuItem();
             item.Text = "Uncompressed";
             item.Click += (sender, args) =>
-            {
-                foreach (var f in filenames)
-                {
-                    Process.Start(Path.GetFullPath(imgConvertCmdPath), $"-ddsNoMipmap \"{f}\"");
-                }
-            };
+                DoCmdWithArgsForAll(imgConvertCmdPath, filenames, (string f) => $"-ddsNoMipmap \"{f}\"");
             items.Add(item);
 
             item = new ToolStripMenuItem();
             item.Text = "Uncompressed with Mipmaps";
             item.Click += (sender, args) =>
-            {
-                foreach (var f in filenames)
-                {
-                    Process.Start(Path.GetFullPath(imgConvertCmdPath), $"-dds \"{f}\"");
-                }
-            };
+                DoCmdWithArgsForAll(imgConvertCmdPath, filenames, (string f) => $"-dds \"{f}\"");
+
             items.Add(item);
 
             item = new ToolStripMenuItem();
             item.Text = "Compressed (BC7)";
             item.Click += (sender, args) =>
-            {
-                foreach (var f in filenames)
-                {
-                    Process.Start(Path.GetFullPath(imgConvertCmdPath), $"-ddsBC7NoMipmap \"{f}\"");
-                }
-            };
+                DoCmdWithArgsForAll(imgConvertCmdPath, filenames, (string f) => $"-ddsBC7NoMipmap \"{f}\"");
             items.Add(item);
 
             item = new ToolStripMenuItem();
             item.Text = "Compressed (BC7) with Mipmaps";
             item.Click += (sender, args) =>
-            {
-                foreach (var f in filenames)
-                {
-                    Process.Start(Path.GetFullPath(imgConvertCmdPath), $"-ddsBC7 \"{f}\"");
-                }
-            };
+                DoCmdWithArgsForAll(imgConvertCmdPath, filenames, (string f) => $"-ddsBC7 \"{f}\"");
             items.Add(item);
             //  Return the menu
             return items.ToArray();

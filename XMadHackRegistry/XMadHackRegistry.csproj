@@ -53,5 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmhShellExtensionsDescription.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="License.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,11 @@
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
     <Platforms>x64</Platforms>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <Authors>xMadHack</Authors>
+    <Company>XMH Tools</Company>
+    <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -51,6 +56,10 @@
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="License.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 

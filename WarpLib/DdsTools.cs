@@ -100,7 +100,7 @@ namespace WarpLib
                     }
                 };
                 process.Start();
-                process.WaitForExit();
+                process.WaitForExit(20000);//To avoid locking the texconv.exe file in case something goes misteriously wrong (Happened once. Can't reproduce)
                 File.Move(tempOutputFilename, pngOutput, true);
                 if (Directory.Exists(tempOutputFolder))
                 {
@@ -126,15 +126,15 @@ namespace WarpLib
                 var tempOutputFilename = Path.Combine(tempOutputFolder, Path.GetFileNameWithoutExtension(sourceFile) + ".dds");
                 if (File.Exists(tempOutputFilename)) { File.Delete(tempOutputFilename); }
                 var mipMapArg = "";
-                if (mipmaps) mipMapArg = " -m 1";
+                if (!mipmaps) mipMapArg = " -m 1";
                 var formatArg = "";
                 if (compress)
                 {
-                    formatArg = "BC7_UNORM";
+                    formatArg = "BC7_UNORM_SRGB";
                 }
                 else
                 {
-                    formatArg = "BGRA";
+                    formatArg = "B8G8R8A8_UNORM_SRGB";
 
                 }
                 // Compresses and creates mipmaps
@@ -143,13 +143,13 @@ namespace WarpLib
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "Utils\\texconv.exe",
-                        Arguments = $"-f {formatArg} -nologo{mipMapArg} -o \"{tempOutputFolder}\" -y \"{sourceFile}\"",
+                        Arguments = $"-f {formatArg} -srgb -nologo{mipMapArg} -o \"{tempOutputFolder}\" -y \"{sourceFile}\"",
                         CreateNoWindow = true,
                         WindowStyle = ProcessWindowStyle.Hidden
                     }
                 };
                 process.Start();
-                process.WaitForExit();
+                process.WaitForExit(20000);//To avoid locking the texconv.exe file in case something goes misteriously wrong (Happened once. Can't reproduce)
                 File.Move(tempOutputFilename, ddsOutputfile, true);
             }
 

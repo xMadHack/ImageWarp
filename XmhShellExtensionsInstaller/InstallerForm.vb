@@ -317,14 +317,14 @@ Public Class InstallerForm
             timeout = 0
             If MessageBox.Show(Me, $"The uninstallation process requires to download and execute {Quote("Handle.exe")}:" + vbCrLf +
                                "An application that detects which processes are locking specific files. " + vbCrLf + "By clicking OK, the installer will automatically download and execute it. Pressing Cancel will abort the operation.", "Handle.exe", MessageBoxButtons.OKCancel) <> DialogResult.OK Then
-                MessageBox.Show("Uninstallation aborted")
+                MessageBox.Show(Me, "Uninstallation aborted")
                 Return
             End If
             MessageBox.Show("Now the installer will execute Handle.exe. It's End User License Agreement needs to be accepted. Once accepted, it will not ask again.")
         End If
 
         If Not ProcLock.TestHandle(timeout) Then
-            MessageBox.Show("Handle is not responding. Aborting unstallation.")
+            MessageBox.Show(Me, "Handle is not responding. Aborting unstallation.")
             Return
         End If
 

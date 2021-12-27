@@ -46,7 +46,7 @@ Partial Class LiteViewForm
         Me.DoubleBuffered = True
         Me.Name = "LiteViewForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "LiteView"
+        Me.Text = "[XMH] LiteView"
         Me.ResumeLayout(False)
 
     End Sub

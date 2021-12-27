@@ -14,7 +14,7 @@ namespace WarpLib
         {
             get { return _DirectoryPath; }
         }
-
+        
         public ScopedTempFolder(string namePrefix = "")
         {
             _DirectoryPath = Path.Combine(TempsHelper.AppTempFolder(false), namePrefix + TempsHelper.GetTemporalFilename(""));

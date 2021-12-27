@@ -14,10 +14,12 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
     <Authors>xMadHack</Authors>
-    <Company>xMadHack Tools</Company>
+    <Company>XMH Tools</Company>
     <Description>Quickly apply texture patches. Supports PNG and DDS files format.</Description>
-    <PackageLicenseExpression>https://www.gnu.org/licenses/gpl-3.0.txt</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -64,6 +66,10 @@
     </None>
     <None Update="TexData\UV_Vanilla\Vanilla\femalehead_msn.dds">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="License.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
