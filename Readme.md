@@ -1,6 +1,8 @@
 # Xmh Tools
 A tools suite for image processing.  
+
 Project hosted at: https://github.com/xMadHack/ImageWarp  
+For more information of the project and the tools, visit the wiki: https://github.com/xMadHack/ImageWarp  
 
 Included features: 
 - Enables generation of **DDS files thumbnails** in window explorer (including compressed formats)
@@ -15,7 +17,7 @@ Included features:
 - Windows 10 x64
 
 ***Textures not included.***  
-They have to be downloaded externally. For Skyrim, check https://www.nexusmods.com/
+They have to be downloaded externally.
 
 ## Contribute!
 
@@ -29,7 +31,7 @@ Donate to the effort: https://paypal.me/xMadHack
 
 Do no accept binaries from sites that are not listed here.   
 Legitimate:  
-- Official Mod in NexusMods. 
+- Official Mod in NexusMods. https://www.nexusmods.com/skyrimspecialedition/mods/60852
 - Releases of  https://github.com/xMadHack/ImageWarp/releases
 
 ### Installation
@@ -59,19 +61,27 @@ All the required libraries should be downloaded automatically by NuGet.
 
 ### Creating outputs
 
-Use the Publish feature (right click a project, and select Publish...) to create the outputs for each exe project.
+Use the Publish feature (right click a project, and select Publish...) to create the outputs for:
+
+- TexPatcher
+- ImgConvertCmd
+- XmhShellExtensionsInstaller
+
+The next projects can't be used with the Publish tool, and the outputs must be copied manually.  
+
+- LiteView
 
 ## License
-
-### ImageWarp
+- **ImageWarp** (AKA [Xmh] Tools)  
+This is the current repository and the produced tools.
 The solution (as in Visual Studio Solution, including all its projects) license is: GNU GPL license v3. 
+https://www.gnu.org/licenses/gpl-3.0.txt
 
-## External Libraries.
-## Emgu CV
+### External Libraries.
+**Emgu CV**
 Installed through NuGet when building.  
 https://www.emgu.com/ 
 Licence (GNU GPL license v3) copied in the Licenses folder.  
 
-## Other NuGet Libraries Used
-DirectxTexNet (MIT license)  
-SharpShell (MIT license)
+**SharpShell** (MIT license)
+**OpenTK** (MIT license)
