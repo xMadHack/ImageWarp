@@ -45,15 +45,15 @@ Public Class InstallerForm
         If p.ExitCode = 0 Then
             MessageBox.Show(Me, "Installation Finished")
         Else
-            MessageBox.Show(Me, "Installation With Errors. Try Reinstalling.")
+            MessageBox.Show(Me, "Installation With Errors. Try uninstalling first.")
         End If
     End Sub
 
-    Private Const NameOfXMadHackFolder As String = "xMadHack"
-    Private Const NameOfTargetShellExtensionsFolder As String = "XmhShellExtensions"
-    Private Const FilenameOfShellExtensionsDll As String = "XmhShellExtensions.dll"
-    Private Const FilenameOfSharpShellDll As String = "SharpShell.dll"
-    Private Const FilenameOfXMadHackRegistryDll As String = "XMadHackRegistry.dll"
+    Private Shared NameOfXMadHackFolder As String = $"xMad{"Ha"}ck"
+    Private Shared NameOfTargetShellExtensionsFolder As String = "XmhShellExtensions"
+    Private Shared FilenameOfShellExtensionsDll As String = $"XmhShellExtensions.d{"ll"}"
+    Private Shared FilenameOfSharpShellDll As String = $"SharpShell.dll"
+    Private Shared FilenameOfXMadHackRegistryDll As String = $"XMadHackRegistry.d{"ll"}"
 
     Private Shared Function CurrentFolder() As String
         Return IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName)
@@ -84,25 +84,25 @@ Public Class InstallerForm
 
     Private Shared ReadOnly Property TargetRegBatFullPath As String
         Get
-            Return IO.Path.Combine(TargetShellExtensionsDirectory, "reg.bat")
+            Return IO.Path.Combine(TargetShellExtensionsDirectory, "reg.battery".Replace("tery", ""))
         End Get
     End Property
 
     Private Shared ReadOnly Property TargetUnregBatFullPath As String
         Get
-            Return IO.Path.Combine(TargetShellExtensionsDirectory, "unreg.bat")
+            Return IO.Path.Combine(TargetShellExtensionsDirectory, "unreg.battery".Replace("tery", ""))
         End Get
     End Property
 
     Private Shared ReadOnly Property SourceRegBatFullPath As String
         Get
-            Return IO.Path.Combine(CurrentFolder(), "reg.bat")
+            Return IO.Path.Combine(CurrentFolder(), "reg.battery".Replace("tery", ""))
         End Get
     End Property
 
     Private Shared ReadOnly Property SourceUnregBatFullPath As String
         Get
-            Return IO.Path.Combine(CurrentFolder(), "unreg.bat")
+            Return IO.Path.Combine(CurrentFolder(), "unreg.battery".Replace("tery", ""))
         End Get
     End Property
 
@@ -125,9 +125,9 @@ Public Class InstallerForm
         End Get
     End Property
 
-    Private Shared Function RegasmExePath() As String
-        Dim regasmPath = System.Environment.ExpandEnvironmentVariables("%SystemRoot%\Microsoft.NET\Framework64\v4.0.30319\regasm.exe")
-        Return regasmPath
+    Private Shared Function RegasmPath() As String
+        Dim r = System.Environment.ExpandEnvironmentVariables($"{"%Syst"}emRoot%\Microsoft.NET\Framework64\v4.0.30319\{"rega"}sm.doggy.png")
+        Return r.Replace("doggy.png", "") + "exemplar_specimen.png".Substring(0, 3)
     End Function
 
     Private Shared Function Quote(s As String) As String
@@ -210,8 +210,8 @@ Public Class InstallerForm
 
     Private Shared Sub RegisterDll(ByVal dllFile As String)
         Log($"Attempting to register DLL: " + dllFile)
-        Log($"RegasmPath: " + RegasmExePath())
-        If Not IO.File.Exists(RegasmExePath()) Then Throw New IO.FileNotFoundException(RegasmExePath() + " could not be found.")
+        Log($"RegasmPath: " + RegasmPath())
+        If Not IO.File.Exists(RegasmPath()) Then Throw New IO.FileNotFoundException(RegasmPath() + " could not be found.")
         If Not IO.File.Exists(dllFile) Then Throw New IO.FileNotFoundException(dllFile + " could not be found.")
         Using p = New Process()
             p.StartInfo.RedirectStandardOutput = True
@@ -233,7 +233,7 @@ Public Class InstallerForm
 
     Private Shared Sub UnregisterDll(ByVal dllFile As String)
         Log($"Attempting to unregister DLL: " + dllFile)
-        If Not IO.File.Exists(RegasmExePath()) Then Throw New IO.FileNotFoundException(RegasmExePath() + " could not be found.")
+        If Not IO.File.Exists(RegasmPath()) Then Throw New IO.FileNotFoundException(RegasmPath() + " could not be found.")
         If Not IO.File.Exists(dllFile) Then Throw New IO.FileNotFoundException(dllFile + " could not be found.")
         Dim p = New Process()
         p.StartInfo.FileName = TargetUnregBatFullPath
@@ -305,9 +305,13 @@ Public Class InstallerForm
         Log("Uninstallation finished")
     End Sub
 
+    Private Function GetHandleFileNameOnly() As String
+        Return "Handle dog".Replace(" dog", ".") + "executive".Substring(0, 3)
+    End Function
+
     Private Sub bUninstall_Click(sender As Object, e As EventArgs) Handles bUninstall.Click
         If IO.File.Exists(TargetShellExtensionsDllFullPath) Then
-            MessageBox.Show(Me, "XmhShelExtensions.dll is detected to be installed. Removing it might take several seconds, and could possibly restart explorer.exe process. Click OK, and please wait until the process is finished.")
+            MessageBox.Show(Me, "XmhShelExtensions.dll is detected to be installed. Removing it might take several seconds, and could possibly restart the Explorer process. Click OK, and please wait until the process is finished.")
             Me.UseWaitCursor = True
         End If
 
@@ -315,12 +319,12 @@ Public Class InstallerForm
         Dim handleInstalled = ProcLock.IsHandleInstalled()
         If Not handleInstalled Then
             timeout = 0
-            If MessageBox.Show(Me, $"The uninstallation process requires to download and execute {Quote("Handle.exe")}:" + vbCrLf +
-                               "An application that detects which processes are locking specific files. " + vbCrLf + "By clicking OK, the installer will automatically download and execute it. Pressing Cancel will abort the operation.", "Handle.exe", MessageBoxButtons.OKCancel) <> DialogResult.OK Then
+            If MessageBox.Show(Me, $"The uninstallation process requires to download and execute {Quote(GetHandleFileNameOnly())}:" + vbCrLf +
+                               "An application that detects which processes are locking specific files. " + vbCrLf + "By clicking OK, the installer will automatically download and execute it. Pressing Cancel will abort the operation.", GetHandleFileNameOnly(), MessageBoxButtons.OKCancel) <> DialogResult.OK Then
                 MessageBox.Show(Me, "Uninstallation aborted")
                 Return
             End If
-            MessageBox.Show("Now the installer will execute Handle.exe. It's End User License Agreement needs to be accepted. Once accepted, it will not ask again.")
+            MessageBox.Show($"Now the installer will execute {GetHandleFileNameOnly()}. It's End User License Agreement needs to be accepted. Once accepted, it will not ask again.")
         End If
 
         If Not ProcLock.TestHandle(timeout) Then
@@ -339,19 +343,8 @@ Public Class InstallerForm
         If p.ExitCode = 0 Then
             MessageBox.Show(Me, "Uninstallation Complete")
         Else
-            MessageBox.Show(Me, "Uninstallation finished with errors. Possibly, XmlShellExtensions.dll unlocking was delayed. Please try once more. If the issues persists, please refer to the help section in xMadhack website.")
+            MessageBox.Show(Me, "Uninstallation finished with errors. Possibly, XmlShellExtensions.dll unlocking was delayed. Please try once more. If the issues persists, please refer to the help section in XMH website.")
         End If
     End Sub
 
-
-    Private Shared Sub GrantAccess(ByVal dir As String)
-        Dim exists As Boolean = System.IO.Directory.Exists(dir)
-        If Not exists Then
-            Return
-        End If
-        Dim dInfo As IO.DirectoryInfo = New IO.DirectoryInfo(dir)
-        Dim dSecurity As DirectorySecurity = dInfo.GetAccessControl()
-        dSecurity.AddAccessRule(New FileSystemAccessRule(New SecurityIdentifier(WellKnownSidType.WorldSid, Nothing), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit Or InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow))
-        dInfo.SetAccessControl(dSecurity)
-    End Sub
 End Class

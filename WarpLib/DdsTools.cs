@@ -1,4 +1,4 @@
-﻿using DirectXTexNet;
+﻿//using DirectXTexNet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -55,18 +55,18 @@ namespace WarpLib
             return resized;
         }
 
-        public static System.Drawing.Bitmap LoadDdsFromMemoryAsBitmap(MemoryStream ms)
-        {
-            using ScratchImage fromMem = TexHelper.Instance.LoadFromWICMemory(
-                            new IntPtr(ms.Position),
-                            ms.Length,
-                            WIC_FLAGS.FORCE_RGB);
-            Guid guid = TexHelper.Instance.GetWICCodec(WICCodecs.PNG);
-            using (UnmanagedMemoryStream memStream = fromMem.SaveToWICMemory(0, WIC_FLAGS.FORCE_SRGB, guid))
-            {
-                return (Bitmap)System.Drawing.Image.FromStream(memStream);
-            }
-        }
+        //public static System.Drawing.Bitmap LoadDdsFromMemoryAsBitmap(MemoryStream ms)
+        //{
+        //    using ScratchImage fromMem = TexHelper.Instance.LoadFromWICMemory(
+        //                    new IntPtr(ms.Position),
+        //                    ms.Length,
+        //                    WIC_FLAGS.FORCE_RGB);
+        //    Guid guid = TexHelper.Instance.GetWICCodec(WICCodecs.PNG);
+        //    using (UnmanagedMemoryStream memStream = fromMem.SaveToWICMemory(0, WIC_FLAGS.FORCE_SRGB, guid))
+        //    {
+        //        return (Bitmap)System.Drawing.Image.FromStream(memStream);
+        //    }
+        //}
 
 
         public static void ConvertToDds(string aFile, string ddsfile, bool mipmaps = true, bool compress = true)
@@ -155,109 +155,109 @@ namespace WarpLib
 
         }
 
-        private static bool IsDdsCompressed(TexMetadata meta)
-        {
-            //There might be other compression formats. 
-            // Also, there might be a flag in the meta data telling about this.
-            // Additionally, I{m not sure if this will be needed once the project
-            // migrates to full texconv.exe as dds backend.
-            switch (meta.Format)
-            {
-                case DXGI_FORMAT.BC1_TYPELESS:
-                case DXGI_FORMAT.BC1_UNORM:
-                case DXGI_FORMAT.BC1_UNORM_SRGB:
-                case DXGI_FORMAT.BC2_TYPELESS:
-                case DXGI_FORMAT.BC2_UNORM:
-                case DXGI_FORMAT.BC2_UNORM_SRGB:
-                case DXGI_FORMAT.BC3_TYPELESS:
-                case DXGI_FORMAT.BC3_UNORM:
-                case DXGI_FORMAT.BC3_UNORM_SRGB:
-                case DXGI_FORMAT.BC4_SNORM:
-                case DXGI_FORMAT.BC4_TYPELESS:
-                case DXGI_FORMAT.BC4_UNORM:
-                case DXGI_FORMAT.BC5_SNORM:
-                case DXGI_FORMAT.BC5_TYPELESS:
-                case DXGI_FORMAT.BC5_UNORM:
-                case DXGI_FORMAT.BC6H_SF16:
-                case DXGI_FORMAT.BC6H_TYPELESS:
-                case DXGI_FORMAT.BC6H_UF16:
-                case DXGI_FORMAT.BC7_TYPELESS:
-                case DXGI_FORMAT.BC7_UNORM:
-                case DXGI_FORMAT.BC7_UNORM_SRGB:
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        //private static bool IsDdsCompressed(TexMetadata meta)
+        //{
+        //    //There might be other compression formats. 
+        //    // Also, there might be a flag in the meta data telling about this.
+        //    // Additionally, I{m not sure if this will be needed once the project
+        //    // migrates to full texconv.exe as dds backend.
+        //    switch (meta.Format)
+        //    {
+        //        case DXGI_FORMAT.BC1_TYPELESS:
+        //        case DXGI_FORMAT.BC1_UNORM:
+        //        case DXGI_FORMAT.BC1_UNORM_SRGB:
+        //        case DXGI_FORMAT.BC2_TYPELESS:
+        //        case DXGI_FORMAT.BC2_UNORM:
+        //        case DXGI_FORMAT.BC2_UNORM_SRGB:
+        //        case DXGI_FORMAT.BC3_TYPELESS:
+        //        case DXGI_FORMAT.BC3_UNORM:
+        //        case DXGI_FORMAT.BC3_UNORM_SRGB:
+        //        case DXGI_FORMAT.BC4_SNORM:
+        //        case DXGI_FORMAT.BC4_TYPELESS:
+        //        case DXGI_FORMAT.BC4_UNORM:
+        //        case DXGI_FORMAT.BC5_SNORM:
+        //        case DXGI_FORMAT.BC5_TYPELESS:
+        //        case DXGI_FORMAT.BC5_UNORM:
+        //        case DXGI_FORMAT.BC6H_SF16:
+        //        case DXGI_FORMAT.BC6H_TYPELESS:
+        //        case DXGI_FORMAT.BC6H_UF16:
+        //        case DXGI_FORMAT.BC7_TYPELESS:
+        //        case DXGI_FORMAT.BC7_UNORM:
+        //        case DXGI_FORMAT.BC7_UNORM_SRGB:
+        //            return true;
+        //        default:
+        //            return false;
+        //    }
+        //}
 
-        private static ScratchImage LoadDDS(string filename, TexMetadata meta = null)
-        {
-            if (meta == null)
-            {
-                meta = TexHelper.Instance.GetMetadataFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.NONE);
-            }
-            //var dds = DirectXTexNet.TexHelper.Instance.LoadFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.NONE);
-            var dds = DirectXTexNet.TexHelper.Instance.LoadFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.FORCE_RGB);
-            ScratchImage uncompressed = null;
-            var wasCompressed = IsDdsCompressed(meta);
+        //private static ScratchImage LoadDDS(string filename, TexMetadata meta = null)
+        //{
+        //    if (meta == null)
+        //    {
+        //        meta = TexHelper.Instance.GetMetadataFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.NONE);
+        //    }
+        //    //var dds = DirectXTexNet.TexHelper.Instance.LoadFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.NONE);
+        //    var dds = DirectXTexNet.TexHelper.Instance.LoadFromDDSFile(filename, DirectXTexNet.DDS_FLAGS.FORCE_RGB);
+        //    ScratchImage uncompressed = null;
+        //    var wasCompressed = IsDdsCompressed(meta);
 
-            if (wasCompressed)
-            {
-                uncompressed = dds.Decompress(0, DXGI_FORMAT.R8G8B8A8_UNORM);
-                dds.Dispose();
-            }
-            else
-            {
-                if (meta.Format != DXGI_FORMAT.R8G8B8A8_UNORM)
-                {
-                    uncompressed = dds.Convert(DXGI_FORMAT.R8G8B8A8_UNORM, TEX_FILTER_FLAGS.DEFAULT, 0.5f);
-                    dds.Dispose();
-                }
+        //    if (wasCompressed)
+        //    {
+        //        uncompressed = dds.Decompress(0, DXGI_FORMAT.R8G8B8A8_UNORM);
+        //        dds.Dispose();
+        //    }
+        //    else
+        //    {
+        //        if (meta.Format != DXGI_FORMAT.R8G8B8A8_UNORM)
+        //        {
+        //            uncompressed = dds.Convert(DXGI_FORMAT.R8G8B8A8_UNORM, TEX_FILTER_FLAGS.DEFAULT, 0.5f);
+        //            dds.Dispose();
+        //        }
 
-            }
-            return uncompressed;
-        }
+        //    }
+        //    return uncompressed;
+        //}
 
-        private static void ConvertToDds(DirectXTexNet.ScratchImage image, string ddsFile, bool mipmaps, bool compress)
-        {
+        //private static void ConvertToDds(DirectXTexNet.ScratchImage image, string ddsFile, bool mipmaps, bool compress)
+        //{
 
-            DirectXTexNet.ScratchImage mipMapStage = null;
-            DirectXTexNet.ScratchImage compressionStage = null;
-            try
-            {
-                if (mipmaps)
-                {
-                    mipMapStage = image.GenerateMipMaps(DirectXTexNet.TEX_FILTER_FLAGS.CUBIC | TEX_FILTER_FLAGS.DITHER, 0);
-                }
-                else
-                {
-                    mipMapStage = image;
-                }
-                if (compress)
-                {
-                    compressionStage = mipMapStage.Compress(DirectXTexNet.DXGI_FORMAT.BC7_UNORM, DirectXTexNet.TEX_COMPRESS_FLAGS.PARALLEL, 0.5f);
-                }
-                else
-                {
-                    compressionStage = mipMapStage;
-                }
+        //    DirectXTexNet.ScratchImage mipMapStage = null;
+        //    DirectXTexNet.ScratchImage compressionStage = null;
+        //    try
+        //    {
+        //        if (mipmaps)
+        //        {
+        //            mipMapStage = image.GenerateMipMaps(DirectXTexNet.TEX_FILTER_FLAGS.CUBIC | TEX_FILTER_FLAGS.DITHER, 0);
+        //        }
+        //        else
+        //        {
+        //            mipMapStage = image;
+        //        }
+        //        if (compress)
+        //        {
+        //            compressionStage = mipMapStage.Compress(DirectXTexNet.DXGI_FORMAT.BC7_UNORM, DirectXTexNet.TEX_COMPRESS_FLAGS.PARALLEL, 0.5f);
+        //        }
+        //        else
+        //        {
+        //            compressionStage = mipMapStage;
+        //        }
 
-                compressionStage.SaveToDDSFile(DirectXTexNet.DDS_FLAGS.NONE, ddsFile);
-            }
-            finally
-            {
-                if (mipmaps)
-                {
-                    mipMapStage?.Dispose();
-                }
-                if (compress)
-                {
-                    compressionStage?.Dispose();
-                }
-            }
+        //        compressionStage.SaveToDDSFile(DirectXTexNet.DDS_FLAGS.NONE, ddsFile);
+        //    }
+        //    finally
+        //    {
+        //        if (mipmaps)
+        //        {
+        //            mipMapStage?.Dispose();
+        //        }
+        //        if (compress)
+        //        {
+        //            compressionStage?.Dispose();
+        //        }
+        //    }
 
 
-        }
+        //}
 
 
     }

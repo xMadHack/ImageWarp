@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XmhRegistry")]
-[assembly: AssemblyDescription("https://github.com/xMadHack/ImageWarp")]
+[assembly: AssemblyTitle("LiteView")]
+[assembly: AssemblyDescription("LiteView")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("XMH")]
-[assembly: AssemblyProduct("XmhRegistry")]
+[assembly: AssemblyProduct("LiteViewGL")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("cebcb785-d316-4ad9-b629-3158b8ab56bb")]
+[assembly: Guid("08e559fc-fc3f-470f-bb67-bac96a6eb904")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

@@ -27,8 +27,10 @@ Donate to the effort: https://paypal.me/xMadHack
 
 ### Legitimate Download Sites
 
-Do no accept binaries from sites that are not listed here.  
-TODO: Add links
+Do no accept binaries from sites that are not listed here.   
+Legitimate:  
+- Official Mod in NexusMods. 
+- Releases of  https://github.com/xMadHack/ImageWarp/releases
 
 ### Installation
 Normally, the installation instruction are listed in the site that hosted the link to the binaries.  

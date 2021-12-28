@@ -11,12 +11,14 @@
     <PublishSingleFile>false</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
-    <Authors>xMadHack</Authors>
+    <Authors>XMH</Authors>
     <Company>XMH Tools</Company>
     <Description>https://github.com/xMadHack/ImageWarp</Description>
     <PackageLicenseFile>License.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
