@@ -2,7 +2,7 @@
 A tools suite for image processing.  
 
 Project hosted at: https://github.com/xMadHack/ImageWarp  
-For more information of the project and the tools, visit the wiki: https://github.com/xMadHack/ImageWarp  
+For more information of the project and the tools, visit the wiki: https://github.com/xMadHack/ImageWarp/wiki  
 
 Included features: 
 - Enables generation of **DDS files thumbnails** in window explorer (including compressed formats)
