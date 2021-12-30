@@ -25,6 +25,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>v1.0</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
+    <DelaySign>True</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

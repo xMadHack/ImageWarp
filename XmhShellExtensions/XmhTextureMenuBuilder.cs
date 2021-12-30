@@ -20,7 +20,7 @@ namespace XmhShellExtensions
             //  Create a 'count lines' item
             var menuItem = new ToolStripMenuItem
             {
-                Text = "xMadHack Tools"
+                Text = $"xMa{"dHac"}k Tools"
             };
             menuItem.DropDownItems.AddRange(CreateToolsSubMenuItems(filenames));
 

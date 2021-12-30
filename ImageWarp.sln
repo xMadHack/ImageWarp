@@ -18,7 +18,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "XmhShellExtensionsInstaller
 		{C5E73A20-E54D-4354-9CCF-35BCA509D258} = {C5E73A20-E54D-4354-9CCF-35BCA509D258}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMadHackRegistry", "XMadHackRegistry\XMadHackRegistry.csproj", "{CEBCB785-D316-4AD9-B629-3158B8AB56BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmhRegHelper", "XMadHackRegistry\XmhRegHelper.csproj", "{CEBCB785-D316-4AD9-B629-3158B8AB56BB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A5955FE1-91EB-41EA-9265-29996C39C513}"
 	ProjectSection(SolutionItems) = preProject

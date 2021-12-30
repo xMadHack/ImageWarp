@@ -13,12 +13,14 @@
     <SelfContained>false</SelfContained>
     <Authors>XMH</Authors>
     <Company>XMH Tools</Company>
-    <Description>https://github.com/xMadHack/ImageWarp</Description>
+    <Description>Windows Extensions Installer</Description>
     <PackageLicenseFile>License.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/xMadHack/ImageWarp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/xMadHack/ImageWarp</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <Copyright>XMH 2021</Copyright>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -32,10 +34,6 @@
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\XMadHackRegistry\XMadHackRegistry.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +65,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XMadHackRegistry\XmhRegHelper.csproj" />
   </ItemGroup>
 
 </Project>

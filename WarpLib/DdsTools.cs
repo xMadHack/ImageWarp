@@ -130,11 +130,11 @@ namespace WarpLib
                 var formatArg = "";
                 if (compress)
                 {
-                    formatArg = "BC7_UNORM_SRGB";
+                    formatArg = "BC7_UNORM";
                 }
                 else
                 {
-                    formatArg = "B8G8R8A8_UNORM_SRGB";
+                    formatArg = "B8G8R8A8_UNORM";
 
                 }
                 // Compresses and creates mipmaps

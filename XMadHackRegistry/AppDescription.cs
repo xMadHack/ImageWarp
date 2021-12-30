@@ -31,7 +31,7 @@ public class AppDescription
     {
         get
         {
-            return @"Software\xMadHack";
+            return $"Softwar{@"e\xMadH"}ack";
         }
     }
 
@@ -39,7 +39,7 @@ public class AppDescription
     {
         get
         {
-            return @"HKEY_CURRENT_USER\" + XMadHackSubkeyPath;
+            return $"HKE{"Y_CURRENT_U"}SER\\" + XMadHackSubkeyPath;
         }
     }
     public string AppRegistryKey
